@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi
+    ports:
+      - "8015:8015"
+    networks:
+      - webapp_webapp # 헬스체크를 수행하고자 하는 도커의 네트워크 확인
+
+networks:
+  webapp_webapp:
+    external: true 

@@ -1,0 +1,6 @@
+# CSV 파일 무시
+*.csv
+
+# Python 캐시 파일 및 디렉토리 무시
+__pycache__/
+*.py[cod]
