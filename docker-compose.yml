@@ -5,12 +5,23 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: fastapi
+    container_name: fastapi-healthcheck
     ports:
       - "8015:8015"
-    networks:
-      - webapp_webapp # 헬스체크를 수행하고자 하는 도커의 네트워크 확인
 
-networks:
-  webapp_webapp:
-    external: true 
+#     # 네트워크 연결: 헬스체크를 수행하고자 하는 서비스가 도커 환경에서 실행 중일 때 해당 서비스에 대한 헬스체크를 수행할 수 있도록 네트워크 연결
+#     networks: 
+#       - webapp_webapp # 헬스체크를 수행하고자 하는 도커의 네트워크 확인
+
+# networks:
+#   webapp_webapp:
+#     external: true 
+# # 만약 도커 환경에서 배포되는 서비스가 없을 시, # 네트워크 연결: 부터 위 구문까지 해당 설정 주석 처리 요망
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
